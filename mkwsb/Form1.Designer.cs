@@ -63,11 +63,7 @@
 			this.radioButtonNetworkingE = new System.Windows.Forms.RadioButton();
 			this.buttonSave = new System.Windows.Forms.Button();
 			this.dataGridView1 = new System.Windows.Forms.DataGridView();
-			this.Delete = new System.Windows.Forms.DataGridViewButtonColumn();
-			this.hostDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.guestDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.readonlyDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-			this.dataTable1BindingSource = new System.Windows.Forms.BindingSource(this.components);
+			this.mappingTableBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.dataSet1 = new mkwsb.DataSet1();
 			this.label1 = new System.Windows.Forms.Label();
 			this.textBoxLogonCommand = new System.Windows.Forms.TextBox();
@@ -75,9 +71,18 @@
 			this.buttonLogonCommand = new System.Windows.Forms.Button();
 			this.openFileDialogLogonCommand = new System.Windows.Forms.OpenFileDialog();
 			this.saveFileDialogWSB = new System.Windows.Forms.SaveFileDialog();
+			this.host = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.guest = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+			this.buttonAddHostPath = new System.Windows.Forms.Button();
+			this.buttonAddBlankRecord = new System.Windows.Forms.Button();
+			this.gridViewDelete = new System.Windows.Forms.DataGridViewButtonColumn();
+			this.hostDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.guestDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.readonlyDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
 			this.tableLayoutPanel1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.dataTable1BindingSource)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.mappingTableBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -522,58 +527,36 @@
 			// 
 			this.dataGridView1.AllowUserToAddRows = false;
 			this.dataGridView1.AllowUserToDeleteRows = false;
+			this.dataGridView1.AllowUserToResizeRows = false;
 			this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.dataGridView1.AutoGenerateColumns = false;
 			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Delete,
+            this.gridViewDelete,
             this.hostDataGridViewTextBoxColumn,
             this.guestDataGridViewTextBoxColumn,
             this.readonlyDataGridViewCheckBoxColumn});
-			this.dataGridView1.DataSource = this.dataTable1BindingSource;
-			this.dataGridView1.Location = new System.Drawing.Point(12, 308);
+			this.dataGridView1.DataSource = this.mappingTableBindingSource;
+			this.dataGridView1.Location = new System.Drawing.Point(12, 322);
 			this.dataGridView1.MultiSelect = false;
 			this.dataGridView1.Name = "dataGridView1";
 			this.dataGridView1.RowHeadersVisible = false;
 			this.dataGridView1.RowTemplate.Height = 21;
-			this.dataGridView1.Size = new System.Drawing.Size(481, 153);
+			this.dataGridView1.Size = new System.Drawing.Size(481, 174);
 			this.dataGridView1.TabIndex = 2;
+			this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
+			this.dataGridView1.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellMouseEnter);
+			this.dataGridView1.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dataGridView1_CellPainting);
+			this.dataGridView1.CurrentCellChanged += new System.EventHandler(this.dataGridView1_CurrentCellChanged);
+			this.dataGridView1.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataGridView1_EditingControlShowing);
+			this.dataGridView1.MouseLeave += new System.EventHandler(this.dataGridView1_MouseLeave);
 			// 
-			// Delete
+			// mappingTableBindingSource
 			// 
-			this.Delete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-			this.Delete.HeaderText = "del";
-			this.Delete.Name = "Delete";
-			this.Delete.Width = 26;
-			// 
-			// hostDataGridViewTextBoxColumn
-			// 
-			this.hostDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.hostDataGridViewTextBoxColumn.DataPropertyName = "host";
-			this.hostDataGridViewTextBoxColumn.HeaderText = "Host path";
-			this.hostDataGridViewTextBoxColumn.Name = "hostDataGridViewTextBoxColumn";
-			// 
-			// guestDataGridViewTextBoxColumn
-			// 
-			this.guestDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.guestDataGridViewTextBoxColumn.DataPropertyName = "guest";
-			this.guestDataGridViewTextBoxColumn.HeaderText = "SandBox path";
-			this.guestDataGridViewTextBoxColumn.Name = "guestDataGridViewTextBoxColumn";
-			// 
-			// readonlyDataGridViewCheckBoxColumn
-			// 
-			this.readonlyDataGridViewCheckBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-			this.readonlyDataGridViewCheckBoxColumn.DataPropertyName = "readonly";
-			this.readonlyDataGridViewCheckBoxColumn.HeaderText = "R/O";
-			this.readonlyDataGridViewCheckBoxColumn.Name = "readonlyDataGridViewCheckBoxColumn";
-			this.readonlyDataGridViewCheckBoxColumn.Width = 33;
-			// 
-			// dataTable1BindingSource
-			// 
-			this.dataTable1BindingSource.DataMember = "DataTable1";
-			this.dataTable1BindingSource.DataSource = this.dataSet1;
+			this.mappingTableBindingSource.DataMember = "MappingTable";
+			this.mappingTableBindingSource.DataSource = this.dataSet1;
 			// 
 			// dataSet1
 			// 
@@ -599,7 +582,7 @@
 			// label5
 			// 
 			this.label5.AutoSize = true;
-			this.label5.Location = new System.Drawing.Point(10, 293);
+			this.label5.Location = new System.Drawing.Point(10, 304);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(82, 12);
 			this.label5.TabIndex = 6;
@@ -623,12 +606,80 @@
 			// 
 			this.saveFileDialogWSB.DefaultExt = "wsb";
 			// 
+			// host
+			// 
+			this.host.DataPropertyName = "host";
+			this.host.HeaderText = "host";
+			this.host.Name = "host";
+			// 
+			// guest
+			// 
+			this.guest.DataPropertyName = "guest";
+			this.guest.HeaderText = "guest";
+			this.guest.Name = "guest";
+			// 
+			// folderBrowserDialog1
+			// 
+			this.folderBrowserDialog1.SelectedPath = "c:\\";
+			// 
+			// buttonAddHostPath
+			// 
+			this.buttonAddHostPath.Location = new System.Drawing.Point(98, 293);
+			this.buttonAddHostPath.Name = "buttonAddHostPath";
+			this.buttonAddHostPath.Size = new System.Drawing.Size(128, 23);
+			this.buttonAddHostPath.TabIndex = 7;
+			this.buttonAddHostPath.Text = "Add host path";
+			this.buttonAddHostPath.UseVisualStyleBackColor = true;
+			this.buttonAddHostPath.Click += new System.EventHandler(this.buttonAddHostPath_Click);
+			// 
+			// buttonAddBlankRecord
+			// 
+			this.buttonAddBlankRecord.Location = new System.Drawing.Point(232, 293);
+			this.buttonAddBlankRecord.Name = "buttonAddBlankRecord";
+			this.buttonAddBlankRecord.Size = new System.Drawing.Size(128, 23);
+			this.buttonAddBlankRecord.TabIndex = 8;
+			this.buttonAddBlankRecord.Text = "Add host path";
+			this.buttonAddBlankRecord.UseVisualStyleBackColor = true;
+			this.buttonAddBlankRecord.Click += new System.EventHandler(this.buttonAddBlankRecord_Click);
+			// 
+			// gridViewDelete
+			// 
+			this.gridViewDelete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+			this.gridViewDelete.HeaderText = "Del";
+			this.gridViewDelete.Name = "gridViewDelete";
+			this.gridViewDelete.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.gridViewDelete.Width = 28;
+			// 
+			// hostDataGridViewTextBoxColumn
+			// 
+			this.hostDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.hostDataGridViewTextBoxColumn.DataPropertyName = "host";
+			this.hostDataGridViewTextBoxColumn.HeaderText = "host";
+			this.hostDataGridViewTextBoxColumn.Name = "hostDataGridViewTextBoxColumn";
+			// 
+			// guestDataGridViewTextBoxColumn
+			// 
+			this.guestDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.guestDataGridViewTextBoxColumn.DataPropertyName = "guest";
+			this.guestDataGridViewTextBoxColumn.HeaderText = "guest";
+			this.guestDataGridViewTextBoxColumn.Name = "guestDataGridViewTextBoxColumn";
+			// 
+			// readonlyDataGridViewCheckBoxColumn
+			// 
+			this.readonlyDataGridViewCheckBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+			this.readonlyDataGridViewCheckBoxColumn.DataPropertyName = "readonly";
+			this.readonlyDataGridViewCheckBoxColumn.HeaderText = "R/O";
+			this.readonlyDataGridViewCheckBoxColumn.Name = "readonlyDataGridViewCheckBoxColumn";
+			this.readonlyDataGridViewCheckBoxColumn.Width = 33;
+			// 
 			// Form1
 			// 
 			this.AcceptButton = this.buttonSave;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(505, 473);
+			this.ClientSize = new System.Drawing.Size(505, 508);
+			this.Controls.Add(this.buttonAddBlankRecord);
+			this.Controls.Add(this.buttonAddHostPath);
 			this.Controls.Add(this.buttonLogonCommand);
 			this.Controls.Add(this.label5);
 			this.Controls.Add(this.textBoxLogonCommand);
@@ -638,11 +689,12 @@
 			this.Controls.Add(this.tableLayoutPanel1);
 			this.Name = "Form1";
 			this.Text = "Form1";
+			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
 			this.Load += new System.EventHandler(this.Form1_Load);
 			this.tableLayoutPanel1.ResumeLayout(false);
 			this.tableLayoutPanel1.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.dataTable1BindingSource)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.mappingTableBindingSource)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataSet1)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
@@ -685,18 +737,23 @@
 		private System.Windows.Forms.RadioButton radioButtonNetworkingD;
 		private System.Windows.Forms.RadioButton radioButtonNetworkingE;
 		private System.Windows.Forms.DataGridView dataGridView1;
-		private System.Windows.Forms.BindingSource dataTable1BindingSource;
 		private DataSet1 dataSet1;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.TextBox textBoxLogonCommand;
 		private System.Windows.Forms.Label label5;
 		private System.Windows.Forms.Button buttonLogonCommand;
-		private System.Windows.Forms.DataGridViewButtonColumn Delete;
+		private System.Windows.Forms.OpenFileDialog openFileDialogLogonCommand;
+		private System.Windows.Forms.SaveFileDialog saveFileDialogWSB;
+		private System.Windows.Forms.BindingSource mappingTableBindingSource;
+		private System.Windows.Forms.DataGridViewTextBoxColumn host;
+		private System.Windows.Forms.DataGridViewTextBoxColumn guest;
+		private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+		private System.Windows.Forms.Button buttonAddHostPath;
+		private System.Windows.Forms.Button buttonAddBlankRecord;
+		private System.Windows.Forms.DataGridViewButtonColumn gridViewDelete;
 		private System.Windows.Forms.DataGridViewTextBoxColumn hostDataGridViewTextBoxColumn;
 		private System.Windows.Forms.DataGridViewTextBoxColumn guestDataGridViewTextBoxColumn;
 		private System.Windows.Forms.DataGridViewCheckBoxColumn readonlyDataGridViewCheckBoxColumn;
-		private System.Windows.Forms.OpenFileDialog openFileDialogLogonCommand;
-		private System.Windows.Forms.SaveFileDialog saveFileDialogWSB;
 	}
 }
 
