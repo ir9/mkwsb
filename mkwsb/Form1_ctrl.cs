@@ -37,6 +37,7 @@ namespace mkwsb
 
 		private void InitializeRadioButtons()
 		{
+			// 順番は RadioGroup に一致するものとする
 			RadioButton[][] radioGroup = {
 				new RadioButton[] { radioButtonvGPUE, radioButtonvGPUD, radioButtonvGPUN },
 				new RadioButton[] { radioButtonNetworkingE, radioButtonNetworkingD, radioButtonNetworkingN },
@@ -198,15 +199,15 @@ namespace mkwsb
 		{
 			// Button を click やら hover しただけで cell から Leave するため
 			// こんな条件が無いと visible = false になって button::click が発火しない
-			bool MouseCursorIsHovering(DataGridViewCellEventArgs e)
+			bool MouseCursorIsHovering(DataGridViewCellEventArgs arg)
 			{
-				if (e.ColumnIndex < 0 || e.RowIndex < 0)
+				if (arg.ColumnIndex < 0 || arg.RowIndex < 0)
 					return false;
 
 				Point mousePosScreen = MousePosition;
 				Point mousePosGridView = dataGridView1.PointToClient(mousePosScreen);
 
-				Rectangle cellRectGridView = dataGridView1.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, true);
+				Rectangle cellRectGridView = dataGridView1.GetCellDisplayRectangle(arg.ColumnIndex, arg.RowIndex, true);
 				return cellRectGridView.Contains(mousePosGridView);
 			}
 
@@ -259,6 +260,68 @@ namespace mkwsb
 				return;
 
 			AddMappingRecord(folderBrowserDialog1.SelectedPath);
+		}
+
+		// ==== LogonCommand family =====
+		private void SaveWSBFile()
+		{
+			if (saveFileDialogWSB.ShowDialog(this) != DialogResult.OK)
+				return;
+
+			string path = saveFileDialogWSB.FileName;
+			WriteModel model = new WriteModel()
+			{
+				vGPU       = GetTriState(m_radioGroup[(int)RadioGroup.vGPU]),
+				Networking = GetTriState(m_radioGroup[(int)RadioGroup.Networking]),
+				AudioInput = GetTriState(m_radioGroup[(int)RadioGroup.AudioInput]),
+				VideoInput = GetTriState(m_radioGroup[(int)RadioGroup.VideoInput]),
+				ProtectedClient      = GetTriState(m_radioGroup[(int)RadioGroup.ProtectedClient]),
+				PrinterRedirection   = GetTriState(m_radioGroup[(int)RadioGroup.PrinterRedirection]),
+				ClipboardRedirection = GetTriState(m_radioGroup[(int)RadioGroup.ClipboardRedirection]),
+				LogonCommand  = textBoxLogonCommand.Text.Trim(),
+				MappedFolders = GetMappedFolders(),
+				MemoryInMB    = (int)numericUpDownMemoryInMB.Value,
+			};
+
+			WSBWriter.Write(model, path);
+		}
+
+		private TriState GetTriState(RadioButton[] group)
+		{
+			foreach (RadioButton c in group)
+			{
+				if (c.Checked)
+				{
+					SplitRadioIndex(c.Tag, out int gi, out int ci);
+					return (TriState)ci; // ちょっとズルい気もする
+				}
+			}
+
+			return TriState.Default;
+		}
+
+		private List<MappedFolder> GetMappedFolders()
+		{
+			// LINQ 使いてぇ…
+			IEnumerable<MappedFolder> EnumMapping()
+			{
+				foreach (DataSet1.MappingTableRow row in dataSet1.MappingTable)
+				{
+					string host = row.host.Trim();
+					string guest = row.guest.Trim();
+					if (string.IsNullOrEmpty(host) || string.IsNullOrEmpty(guest))
+						continue;
+
+					yield return new MappedFolder()
+					{
+						host = host,
+						sandbox = guest,
+						ro = row._readonly,
+					};
+				}
+			}
+
+			return new List<MappedFolder>(EnumMapping());
 		}
 
 		// === util ===

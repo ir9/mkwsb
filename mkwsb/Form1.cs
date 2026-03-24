@@ -39,7 +39,7 @@ namespace mkwsb
 
 		private void buttonSave_Click(object sender, EventArgs e)
 		{
-
+			SaveWSBFile();
 		}
 
 		private void buttonLogonCommand_Click(object sender, EventArgs e)

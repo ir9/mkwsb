@@ -63,6 +63,10 @@
 			this.radioButtonNetworkingE = new System.Windows.Forms.RadioButton();
 			this.buttonSave = new System.Windows.Forms.Button();
 			this.dataGridView1 = new System.Windows.Forms.DataGridView();
+			this.gridViewDelete = new System.Windows.Forms.DataGridViewButtonColumn();
+			this.hostDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.guestDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.readonlyDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
 			this.mappingTableBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.dataSet1 = new mkwsb.DataSet1();
 			this.label1 = new System.Windows.Forms.Label();
@@ -76,14 +80,13 @@
 			this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
 			this.buttonAddHostPath = new System.Windows.Forms.Button();
 			this.buttonAddBlankRecord = new System.Windows.Forms.Button();
-			this.gridViewDelete = new System.Windows.Forms.DataGridViewButtonColumn();
-			this.hostDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.guestDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.readonlyDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+			this.label6 = new System.Windows.Forms.Label();
+			this.numericUpDownMemoryInMB = new System.Windows.Forms.NumericUpDown();
 			this.tableLayoutPanel1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.mappingTableBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDownMemoryInMB)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// tableLayoutPanel1
@@ -552,6 +555,36 @@
 			this.dataGridView1.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dataGridView1_CellPainting);
 			this.dataGridView1.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataGridView1_EditingControlShowing);
 			// 
+			// gridViewDelete
+			// 
+			this.gridViewDelete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+			this.gridViewDelete.HeaderText = "Del";
+			this.gridViewDelete.Name = "gridViewDelete";
+			this.gridViewDelete.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.gridViewDelete.Width = 28;
+			// 
+			// hostDataGridViewTextBoxColumn
+			// 
+			this.hostDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.hostDataGridViewTextBoxColumn.DataPropertyName = "host";
+			this.hostDataGridViewTextBoxColumn.HeaderText = "host";
+			this.hostDataGridViewTextBoxColumn.Name = "hostDataGridViewTextBoxColumn";
+			// 
+			// guestDataGridViewTextBoxColumn
+			// 
+			this.guestDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.guestDataGridViewTextBoxColumn.DataPropertyName = "guest";
+			this.guestDataGridViewTextBoxColumn.HeaderText = "guest";
+			this.guestDataGridViewTextBoxColumn.Name = "guestDataGridViewTextBoxColumn";
+			// 
+			// readonlyDataGridViewCheckBoxColumn
+			// 
+			this.readonlyDataGridViewCheckBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+			this.readonlyDataGridViewCheckBoxColumn.DataPropertyName = "readonly";
+			this.readonlyDataGridViewCheckBoxColumn.HeaderText = "R/O";
+			this.readonlyDataGridViewCheckBoxColumn.Name = "readonlyDataGridViewCheckBoxColumn";
+			this.readonlyDataGridViewCheckBoxColumn.Width = 33;
+			// 
 			// mappingTableBindingSource
 			// 
 			this.mappingTableBindingSource.DataMember = "MappingTable";
@@ -604,6 +637,7 @@
 			// saveFileDialogWSB
 			// 
 			this.saveFileDialogWSB.DefaultExt = "wsb";
+			this.saveFileDialogWSB.Filter = "Windows Sandbox configuration file|*.wsb";
 			// 
 			// host
 			// 
@@ -625,7 +659,7 @@
 			// 
 			this.buttonAddHostPath.Location = new System.Drawing.Point(98, 293);
 			this.buttonAddHostPath.Name = "buttonAddHostPath";
-			this.buttonAddHostPath.Size = new System.Drawing.Size(128, 23);
+			this.buttonAddHostPath.Size = new System.Drawing.Size(160, 23);
 			this.buttonAddHostPath.TabIndex = 7;
 			this.buttonAddHostPath.Text = "Add host path";
 			this.buttonAddHostPath.UseVisualStyleBackColor = true;
@@ -633,43 +667,45 @@
 			// 
 			// buttonAddBlankRecord
 			// 
-			this.buttonAddBlankRecord.Location = new System.Drawing.Point(232, 293);
+			this.buttonAddBlankRecord.Location = new System.Drawing.Point(264, 293);
 			this.buttonAddBlankRecord.Name = "buttonAddBlankRecord";
-			this.buttonAddBlankRecord.Size = new System.Drawing.Size(128, 23);
+			this.buttonAddBlankRecord.Size = new System.Drawing.Size(113, 23);
 			this.buttonAddBlankRecord.TabIndex = 8;
-			this.buttonAddBlankRecord.Text = "Add host path";
+			this.buttonAddBlankRecord.Text = "Add blank record";
 			this.buttonAddBlankRecord.UseVisualStyleBackColor = true;
 			this.buttonAddBlankRecord.Click += new System.EventHandler(this.buttonAddBlankRecord_Click);
 			// 
-			// gridViewDelete
+			// label6
 			// 
-			this.gridViewDelete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-			this.gridViewDelete.HeaderText = "Del";
-			this.gridViewDelete.Name = "gridViewDelete";
-			this.gridViewDelete.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-			this.gridViewDelete.Width = 28;
+			this.label6.AutoSize = true;
+			this.label6.Location = new System.Drawing.Point(422, 195);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(71, 12);
+			this.label6.TabIndex = 9;
+			this.label6.Text = "MemoryInMB";
 			// 
-			// hostDataGridViewTextBoxColumn
+			// numericUpDownMemoryInMB
 			// 
-			this.hostDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.hostDataGridViewTextBoxColumn.DataPropertyName = "host";
-			this.hostDataGridViewTextBoxColumn.HeaderText = "host";
-			this.hostDataGridViewTextBoxColumn.Name = "hostDataGridViewTextBoxColumn";
-			// 
-			// guestDataGridViewTextBoxColumn
-			// 
-			this.guestDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.guestDataGridViewTextBoxColumn.DataPropertyName = "guest";
-			this.guestDataGridViewTextBoxColumn.HeaderText = "guest";
-			this.guestDataGridViewTextBoxColumn.Name = "guestDataGridViewTextBoxColumn";
-			// 
-			// readonlyDataGridViewCheckBoxColumn
-			// 
-			this.readonlyDataGridViewCheckBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-			this.readonlyDataGridViewCheckBoxColumn.DataPropertyName = "readonly";
-			this.readonlyDataGridViewCheckBoxColumn.HeaderText = "R/O";
-			this.readonlyDataGridViewCheckBoxColumn.Name = "readonlyDataGridViewCheckBoxColumn";
-			this.readonlyDataGridViewCheckBoxColumn.Width = 33;
+			this.numericUpDownMemoryInMB.Location = new System.Drawing.Point(353, 210);
+			this.numericUpDownMemoryInMB.Maximum = new decimal(new int[] {
+            2147483647,
+            0,
+            0,
+            0});
+			this.numericUpDownMemoryInMB.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+			this.numericUpDownMemoryInMB.Name = "numericUpDownMemoryInMB";
+			this.numericUpDownMemoryInMB.Size = new System.Drawing.Size(140, 19);
+			this.numericUpDownMemoryInMB.TabIndex = 10;
+			this.numericUpDownMemoryInMB.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.numericUpDownMemoryInMB.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
 			// 
 			// Form1
 			// 
@@ -677,6 +713,8 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(505, 508);
+			this.Controls.Add(this.numericUpDownMemoryInMB);
+			this.Controls.Add(this.label6);
 			this.Controls.Add(this.buttonAddBlankRecord);
 			this.Controls.Add(this.buttonAddHostPath);
 			this.Controls.Add(this.buttonLogonCommand);
@@ -695,6 +733,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.mappingTableBindingSource)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataSet1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDownMemoryInMB)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -753,6 +792,8 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn hostDataGridViewTextBoxColumn;
 		private System.Windows.Forms.DataGridViewTextBoxColumn guestDataGridViewTextBoxColumn;
 		private System.Windows.Forms.DataGridViewCheckBoxColumn readonlyDataGridViewCheckBoxColumn;
+		private System.Windows.Forms.Label label6;
+		private System.Windows.Forms.NumericUpDown numericUpDownMemoryInMB;
 	}
 }
 
