@@ -123,7 +123,6 @@ namespace mkwsb
 
 		private void OnClickCell(DataGridViewCellEventArgs e)
 		{
-			// System.Diagnostics.Trace.WriteLine($"row={e.RowIndex} / column={e.ColumnIndex}");
 			if (e.ColumnIndex == GRIDVIEW_INDEX_DELETE_BUTTON)
 				OnClickDeleteButton(e.RowIndex);
 		}
@@ -180,6 +179,7 @@ namespace mkwsb
 			row.Cells[GRIDVIEW_INDEX_SANDBOX_PATH].Value = hostPath;
 		}
 
+		// --- for hover button (on host path column
 		private void OnHoverCursorOnHostCell(DataGridViewCellEventArgs e)
 		{
 			Rectangle rect = dataGridView1.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
@@ -194,17 +194,23 @@ namespace mkwsb
 			m_hoverRowIndex = e.RowIndex;
 		}
 
-		private void LeaveCursorFromGridView()
+		private void LeaveCursorFromGridView(DataGridViewCellEventArgs e)
 		{
-			Point mousePosScreen = MousePosition;
-			Point mousePosGridView = dataGridView1.PointToClient(mousePosScreen);
-			if (!dataGridView1.ClientRectangle.Contains(mousePosGridView))
-			{   // 本当に gridvIew から離れた
-				// Button を click しただけで control から Leave するようで
-				// この if() が無いと visible = false になって button::click が発火しない
-				System.Diagnostics.Trace.WriteLine("LeaveCursorFromGridView");
-				m_selectHoverButton.Visible = false;
+			// Button を click やら hover しただけで cell から Leave するため
+			// こんな条件が無いと visible = false になって button::click が発火しない
+			bool MouseCursorIsHovering(DataGridViewCellEventArgs e)
+			{
+				if (e.ColumnIndex < 0 || e.RowIndex < 0)
+					return false;
+
+				Point mousePosScreen = MousePosition;
+				Point mousePosGridView = dataGridView1.PointToClient(mousePosScreen);
+
+				Rectangle cellRectGridView = dataGridView1.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, true);
+				return cellRectGridView.Contains(mousePosGridView);
 			}
+
+			m_selectHoverButton.Visible = MouseCursorIsHovering(e);
 		}
 
 		private void OnPressHoverButton(object sender, EventArgs e)
@@ -226,8 +232,7 @@ namespace mkwsb
 			}
 		}
 
-		// --- util ---
-
+		// --- util for grid view ---
 		private string MakeSandBoxPath(string hostPath)
 		{
 			string dirName = Path.GetFileName(hostPath);

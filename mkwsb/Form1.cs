@@ -64,11 +64,6 @@ namespace mkwsb
 			ApplyPathAutoComplete(e);
 		}
 
-		private void dataGridView1_CurrentCellChanged(object sender, EventArgs e)
-		{
-
-		}
-
 		private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
 		{
 			if (e.RowIndex < 0 || e.ColumnIndex < 0)
@@ -102,9 +97,9 @@ namespace mkwsb
 			}
 		}
 
-		private void dataGridView1_MouseLeave(object sender, EventArgs e)
+		private void dataGridView1_CellMouseLeave(object sender, DataGridViewCellEventArgs e)
 		{
-			LeaveCursorFromGridView();
+			LeaveCursorFromGridView(e);
 		}
 	}
 }
