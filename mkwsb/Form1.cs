@@ -51,7 +51,7 @@ namespace mkwsb
 
 		private void buttonAddHostPath_Click(object sender, EventArgs e)
 		{
-			AddHostPath();
+			AddHostDir();
 		}
 
 		private void buttonAddBlankRecord_Click(object sender, EventArgs e)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
@@ -116,10 +117,15 @@ namespace mkwsb
 			dataSet1.MappingTable.AddMappingTableRow("", "", false, 0);
 		}
 
-		private void AddMappingRecord(string hostPath)
+		private void AddMappingRecord(string hostDir)
 		{
-			string sandBoxPath = MakeSandBoxPath(hostPath);
-			dataSet1.MappingTable.AddMappingTableRow(hostPath, sandBoxPath, true, 0);
+			string sandBoxDir = MakeSandBoxDir(hostDir);
+			AddMappingRecord(hostDir, sandBoxDir);
+		}
+
+		private void AddMappingRecord(string hostDir, string sandBoxDir)
+		{
+			dataSet1.MappingTable.AddMappingTableRow(hostDir, sandBoxDir, true, 0);
 		}
 
 		private void OnClickCell(DataGridViewCellEventArgs e)
@@ -150,7 +156,7 @@ namespace mkwsb
 		private void ApplyPathAutoComplete(DataGridViewEditingControlShowingEventArgs e)
 		{
 			DataGridViewCell current = dataGridView1.CurrentCell;
-			if (current.ColumnIndex != 1)
+			if (current.ColumnIndex != GRIDVIEW_INDEX_HOST_PATH)
 				return;
 
 			TextBox textBox = e.Control as TextBox;
@@ -168,16 +174,16 @@ namespace mkwsb
 				return;
 
 			DataGridViewRow row = dataGridView1.Rows[m_editingCellRowIndex];
-			string sandBoxPath = GetCellString(row.Cells[GRIDVIEW_INDEX_SANDBOX_PATH]);
-			if (sandBoxPath == null)
+			string sandBoxDir = GetCellString(row.Cells[GRIDVIEW_INDEX_SANDBOX_PATH]);
+			if (sandBoxDir == null)
 				return;
 
-			string hostPath = GetCellString(row.Cells[GRIDVIEW_INDEX_HOST_PATH]);
-			if (hostPath == null)
+			string hostDir = GetCellString(row.Cells[GRIDVIEW_INDEX_HOST_PATH]);
+			if (hostDir == null)
 				return;
 
-			sandBoxPath = MakeSandBoxPath(sandBoxPath);
-			row.Cells[GRIDVIEW_INDEX_SANDBOX_PATH].Value = hostPath;
+			sandBoxDir = MakeSandBoxDir(sandBoxDir);
+			row.Cells[GRIDVIEW_INDEX_SANDBOX_PATH].Value = hostDir;
 		}
 
 		// --- for hover button (on host path column
@@ -217,43 +223,98 @@ namespace mkwsb
 		private void OnPressHoverButton(object sender, EventArgs e)
 		{
 			DataGridViewRow row = dataGridView1.Rows[m_hoverRowIndex];
-			string hostPath = GetCellString(row.Cells[GRIDVIEW_INDEX_HOST_PATH]);
-			folderBrowserDialog1.SelectedPath = hostPath;
+			string hostDir = GetCellString(row.Cells[GRIDVIEW_INDEX_HOST_PATH]);
+			folderBrowserDialog1.SelectedPath = hostDir;
 			if (folderBrowserDialog1.ShowDialog(this) == DialogResult.OK)
 			{
-				hostPath = folderBrowserDialog1.SelectedPath;
-				row.Cells[GRIDVIEW_INDEX_HOST_PATH].Value = hostPath;
+				hostDir = folderBrowserDialog1.SelectedPath;
+				row.Cells[GRIDVIEW_INDEX_HOST_PATH].Value = hostDir;
 
-				string sandBoxPath = GetCellString(row.Cells[GRIDVIEW_INDEX_SANDBOX_PATH]);
-				if (string.IsNullOrEmpty(sandBoxPath))
+				string sandBoxDir = GetCellString(row.Cells[GRIDVIEW_INDEX_SANDBOX_PATH]);
+				if (string.IsNullOrEmpty(sandBoxDir))
 				{
-					sandBoxPath = MakeSandBoxPath(hostPath);
-					row.Cells[GRIDVIEW_INDEX_SANDBOX_PATH].Value = sandBoxPath;
+					sandBoxDir = MakeSandBoxDir(hostDir);
+					row.Cells[GRIDVIEW_INDEX_SANDBOX_PATH].Value = sandBoxDir;
 				}
 			}
 		}
 
 		// --- util for grid view ---
-		private string MakeSandBoxPath(string hostPath)
+		private string MakeSandBoxDir(string hostDirectory)
 		{
-			string dirName = Path.GetFileName(hostPath);
-			string sandBoxPath = Path.Combine(SANDBOX_MOUNT_ROOT_PATH, dirName);
-			return sandBoxPath;
+			string dirName = Path.GetFileName(hostDirectory);
+			string sandBoxDir = Path.Combine(SANDBOX_MOUNT_ROOT_PATH, dirName);
+			return sandBoxDir;
 		}
 
 		
 		// ==== LogonCommand family =====
 		private void SetLogonCommand()
 		{
-			openFileDialogLogonCommand.FileName = "";
+			ConvertSandBoxPathToHostPath(textBoxLogonCommand.Text, out string hostPath, out string fileName);
+			openFileDialogLogonCommand.FileName = fileName;
+			if (!string.IsNullOrEmpty(hostPath))
+			{
+				openFileDialogLogonCommand.InitialDirectory = hostPath;
+			}
+
 			DialogResult result = openFileDialogLogonCommand.ShowDialog(this);
 			if (result != DialogResult.OK)
 				return;
 			string path = openFileDialogLogonCommand.FileName;
-			textBoxLogonCommand.Text = path;
+
+			string parentDir = Path.GetDirectoryName(path); // 最後の \\ は付かない
+			string parentName = Path.GetFileName(path);
+			string sandBoxDir = MakeSandBoxDir(parentDir);
+			if (!ParentPathIsMapped(parentDir))
+			{
+				AddMappingRecord(parentDir, sandBoxDir);
+			}
+			string sandBoxPath = Path.Combine(sandBoxDir, parentName);
+			textBoxLogonCommand.Text = sandBoxPath;
 		}
 
-		private void AddHostPath()
+		private bool ParentPathIsMapped(string parentDir)
+		{
+			parentDir = parentDir.ToLower();
+			foreach (DataSet1.MappingTableRow row in dataSet1.MappingTable)
+			{
+				string host = row.host.ToLower();
+				if (host.StartsWith(parentDir))
+					return true;
+			}
+
+			return false;
+		}
+
+		private void ConvertSandBoxPathToHostPath(string sandBoxPath, out string hostPath, out string fileName)
+		{
+			try
+			{
+				fileName = Path.GetFileName(sandBoxPath);
+				string sandBoxParentDir = Path.GetDirectoryName(sandBoxPath);
+				sandBoxParentDir = sandBoxParentDir.ToLower();
+				foreach (DataSet1.MappingTableRow row in dataSet1.MappingTable)
+				{
+					string sandBoxDir = row.guest.ToLower();
+					if (sandBoxDir.StartsWith(sandBoxParentDir))
+					{
+						hostPath = row.host;
+						return;
+					}
+				}
+			}
+			catch (ArgumentException)
+			{
+				// pass
+			}
+
+			fileName = "";
+			hostPath = "";
+		}
+
+
+		private void AddHostDir()
 		{
 			DialogResult result = folderBrowserDialog1.ShowDialog(this);
 			if (result != DialogResult.OK)
