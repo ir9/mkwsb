@@ -68,6 +68,19 @@ namespace mkwsb
 			root.AppendChild(mappedFolders);
 		}
 
+		private void AppendLogonCommandElement(string cmd)
+		{
+			if (string.IsNullOrEmpty(cmd))
+				return;
+
+			XmlElement logonCommand = xml.CreateElement("LogonCommand");
+			XmlElement command = CreateConfigElement("Command", cmd);
+
+			logonCommand.AppendChild(command);
+			root.AppendChild(logonCommand);
+		}
+
+
 		private void AppendMemoryInMBElement()
 		{
 			if (model.MemoryInMB < 0)
@@ -87,11 +100,7 @@ namespace mkwsb
 			AppendTriStateConfigElement("ClipboardRedirection", model.ClipboardRedirection);
 
 			AppendMappedFolders();
-
-			if (!string.IsNullOrEmpty(model.LogonCommand))
-			{
-				AppendConfigElement("LogonCommand", model.LogonCommand);
-			}
+			AppendLogonCommandElement(model.LogonCommand);
 			AppendMemoryInMBElement();
 		}
 
