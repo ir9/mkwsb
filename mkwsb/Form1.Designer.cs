@@ -69,9 +69,9 @@
 			this.readonlyDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
 			this.mappingTableBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.dataSet1 = new mkwsb.DataSet1();
-			this.label1 = new System.Windows.Forms.Label();
+			this.labelLogonCommand = new System.Windows.Forms.Label();
 			this.textBoxLogonCommand = new System.Windows.Forms.TextBox();
-			this.label5 = new System.Windows.Forms.Label();
+			this.labelMappedFolders = new System.Windows.Forms.Label();
 			this.buttonLogonCommand = new System.Windows.Forms.Button();
 			this.openFileDialogLogonCommand = new System.Windows.Forms.OpenFileDialog();
 			this.saveFileDialogWSB = new System.Windows.Forms.SaveFileDialog();
@@ -80,8 +80,10 @@
 			this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
 			this.buttonAddHostPath = new System.Windows.Forms.Button();
 			this.buttonAddBlankRecord = new System.Windows.Forms.Button();
-			this.label6 = new System.Windows.Forms.Label();
+			this.labelMemoryInMB = new System.Windows.Forms.Label();
 			this.numericUpDownMemoryInMB = new System.Windows.Forms.NumericUpDown();
+			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+			this.timer1 = new System.Windows.Forms.Timer(this.components);
 			this.tableLayoutPanel1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.mappingTableBindingSource)).BeginInit();
@@ -596,14 +598,14 @@
 			this.dataSet1.DataSetName = "DataSet1";
 			this.dataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
 			// 
-			// label1
+			// labelLogonCommand
 			// 
-			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(10, 243);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(85, 12);
-			this.label1.TabIndex = 4;
-			this.label1.Text = "LogonCommand";
+			this.labelLogonCommand.AutoSize = true;
+			this.labelLogonCommand.Location = new System.Drawing.Point(10, 243);
+			this.labelLogonCommand.Name = "labelLogonCommand";
+			this.labelLogonCommand.Size = new System.Drawing.Size(85, 12);
+			this.labelLogonCommand.TabIndex = 4;
+			this.labelLogonCommand.Text = "LogonCommand";
 			// 
 			// textBoxLogonCommand
 			// 
@@ -614,14 +616,14 @@
 			this.textBoxLogonCommand.Size = new System.Drawing.Size(445, 19);
 			this.textBoxLogonCommand.TabIndex = 0;
 			// 
-			// label5
+			// labelMappedFolders
 			// 
-			this.label5.AutoSize = true;
-			this.label5.Location = new System.Drawing.Point(10, 304);
-			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(82, 12);
-			this.label5.TabIndex = 6;
-			this.label5.Text = "MappedFolders";
+			this.labelMappedFolders.AutoSize = true;
+			this.labelMappedFolders.Location = new System.Drawing.Point(10, 304);
+			this.labelMappedFolders.Name = "labelMappedFolders";
+			this.labelMappedFolders.Size = new System.Drawing.Size(82, 12);
+			this.labelMappedFolders.TabIndex = 6;
+			this.labelMappedFolders.Text = "MappedFolders";
 			// 
 			// buttonLogonCommand
 			// 
@@ -679,15 +681,15 @@
 			this.buttonAddBlankRecord.UseVisualStyleBackColor = true;
 			this.buttonAddBlankRecord.Click += new System.EventHandler(this.buttonAddBlankRecord_Click);
 			// 
-			// label6
+			// labelMemoryInMB
 			// 
-			this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.label6.AutoSize = true;
-			this.label6.Location = new System.Drawing.Point(422, 195);
-			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(71, 12);
-			this.label6.TabIndex = 9;
-			this.label6.Text = "MemoryInMB";
+			this.labelMemoryInMB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.labelMemoryInMB.AutoSize = true;
+			this.labelMemoryInMB.Location = new System.Drawing.Point(422, 195);
+			this.labelMemoryInMB.Name = "labelMemoryInMB";
+			this.labelMemoryInMB.Size = new System.Drawing.Size(71, 12);
+			this.labelMemoryInMB.TabIndex = 9;
+			this.labelMemoryInMB.Text = "MemoryInMB";
 			// 
 			// numericUpDownMemoryInMB
 			// 
@@ -714,6 +716,12 @@
             0,
             -2147483648});
 			// 
+			// toolTip1
+			// 
+			this.toolTip1.AutoPopDelay = 0;
+			this.toolTip1.InitialDelay = 500;
+			this.toolTip1.ReshowDelay = 100;
+			// 
 			// Form1
 			// 
 			this.AcceptButton = this.buttonSave;
@@ -721,13 +729,13 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(505, 508);
 			this.Controls.Add(this.numericUpDownMemoryInMB);
-			this.Controls.Add(this.label6);
+			this.Controls.Add(this.labelMemoryInMB);
 			this.Controls.Add(this.buttonAddBlankRecord);
 			this.Controls.Add(this.buttonAddHostPath);
 			this.Controls.Add(this.buttonLogonCommand);
-			this.Controls.Add(this.label5);
+			this.Controls.Add(this.labelMappedFolders);
 			this.Controls.Add(this.textBoxLogonCommand);
-			this.Controls.Add(this.label1);
+			this.Controls.Add(this.labelLogonCommand);
 			this.Controls.Add(this.dataGridView1);
 			this.Controls.Add(this.buttonSave);
 			this.Controls.Add(this.tableLayoutPanel1);
@@ -783,9 +791,9 @@
 		private System.Windows.Forms.RadioButton radioButtonNetworkingE;
 		private System.Windows.Forms.DataGridView dataGridView1;
 		private DataSet1 dataSet1;
-		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Label labelLogonCommand;
 		private System.Windows.Forms.TextBox textBoxLogonCommand;
-		private System.Windows.Forms.Label label5;
+		private System.Windows.Forms.Label labelMappedFolders;
 		private System.Windows.Forms.Button buttonLogonCommand;
 		private System.Windows.Forms.OpenFileDialog openFileDialogLogonCommand;
 		private System.Windows.Forms.SaveFileDialog saveFileDialogWSB;
@@ -799,8 +807,10 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn hostDataGridViewTextBoxColumn;
 		private System.Windows.Forms.DataGridViewTextBoxColumn guestDataGridViewTextBoxColumn;
 		private System.Windows.Forms.DataGridViewCheckBoxColumn readonlyDataGridViewCheckBoxColumn;
-		private System.Windows.Forms.Label label6;
+		private System.Windows.Forms.Label labelMemoryInMB;
 		private System.Windows.Forms.NumericUpDown numericUpDownMemoryInMB;
+		private System.Windows.Forms.ToolTip toolTip1;
+		private System.Windows.Forms.Timer timer1;
 	}
 }
 

@@ -13,6 +13,7 @@ namespace mkwsb
 		{
 			InitializeRadioButtons();
 			InitializeGridView();
+			InitializeToolTips();
 			AddDebugRecords();
 		}
 
@@ -384,6 +385,24 @@ namespace mkwsb
 			}
 
 			return new List<MappedFolder>(EnumMapping());
+		}
+
+		// === tool tips ===
+		private void InitializeToolTips()
+		{
+			toolTip1.SetToolTip(labelvGPU, Properties.Resources.vGPU);
+			toolTip1.SetToolTip(labelNetworking, Properties.Resources.Networking);
+			toolTip1.SetToolTip(labelAudioInput, Properties.Resources.AudioInput);
+			toolTip1.SetToolTip(labelVideoInput, Properties.Resources.VideoInput);
+			toolTip1.SetToolTip(labelProtectedClient, Properties.Resources.ProtectedClient);
+			toolTip1.SetToolTip(labelPrinterRedirection, Properties.Resources.PrinterRedirection);
+			toolTip1.SetToolTip(labelClipboardRedirection, Properties.Resources.ClipboardRedirection);
+			toolTip1.SetToolTip(labelMappedFolders, Properties.Resources.MappedFolders);
+			toolTip1.SetToolTip(labelMemoryInMB, Properties.Resources.MemoryInMB);
+			toolTip1.SetToolTip(labelLogonCommand, Properties.Resources.LogonCommand);
+
+			toolTip1.SetToolTip(numericUpDownMemoryInMB, Properties.Resources.MemoryInMB);
+			toolTip1.SetToolTip(textBoxLogonCommand, Properties.Resources.LogonCommand);
 		}
 
 		// === util ===

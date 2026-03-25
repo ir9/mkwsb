@@ -59,5 +59,97 @@ namespace mkwsb.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Shares the host&apos;s microphone input into the sandbox. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string AudioInput {
+            get {
+                return ResourceManager.GetString("AudioInput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Shares the host clipboard with the sandbox so that text and files can be pasted back and forth. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string ClipboardRedirection {
+            get {
+                return ResourceManager.GetString("ClipboardRedirection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   A command to execute when Windows Sandbox starts. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string LogonCommand {
+            get {
+                return ResourceManager.GetString("LogonCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Share folders from the host with read or write permissions.
+        ///Exposing host directories might allow malicious software to affect the system or steal data. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string MappedFolders {
+            get {
+                return ResourceManager.GetString("MappedFolders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   The amount of memory, in megabytes, to assign to the sandbox. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string MemoryInMB {
+            get {
+                return ResourceManager.GetString("MemoryInMB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Enable or disable network access within the sandbox. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Networking {
+            get {
+                return ResourceManager.GetString("Networking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Shares printers from the host into the sandbox. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string PrinterRedirection {
+            get {
+                return ResourceManager.GetString("PrinterRedirection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Places increased security settings on the Remote Desktop Protocol (RDP) session to the sandbox. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string ProtectedClient {
+            get {
+                return ResourceManager.GetString("ProtectedClient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Enable or disable the virtualized GPU.
+        ///If vGPU is disabled, the sandbox uses Windows Advanced Rasterization Platform (WARP). に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string vGPU {
+            get {
+                return ResourceManager.GetString("vGPU", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Shares the host&apos;s webcam input into the sandbox. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string VideoInput {
+            get {
+                return ResourceManager.GetString("VideoInput", resourceCulture);
+            }
+        }
     }
 }
