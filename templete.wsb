@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Configuration>
+  <!--
+  Enable or disable the virtualized GPU.
+  If vGPU is disabled, the sandbox uses Windows Advanced Rasterization Platform (WARP).
+  -->
+  <vGPU>Enable</vGPU>
+
+  <!-- Enable or disable network access within the sandbox. -->
+  <Networking>Default</Networking>
+
+  <!-- Shares the host's microphone input into the sandbox. -->
+  <AudioInput>Default</AudioInput>
+
+  <!-- Shares the host's webcam input into the sandbox. -->
+  <VideoInput>Disable</VideoInput>
+
+  <!-- Places increased security settings on the Remote Desktop Protocol (RDP) session to the sandbox. -->
+  <ProtectedClient>Default</ProtectedClient>
+
+  <!-- Shares printers from the host into the sandbox. -->
+  <PrinterRedirection>Disable</PrinterRedirection>
+
+  <!-- Shares the host clipboard with the sandbox so that text and files can be pasted back and forth. -->
+  <ClipboardRedirection>Default</ClipboardRedirection>
+
+  <!--
+  Share folders from the host with read or write permissions.
+  Exposing host directories might allow malicious software to affect the system or steal data.
+  -->
+  <MappedFolders>
+    <MappedFolder>
+      <HostFolder>C:\to\host</HostFolder>
+      <SandboxFolder>c:\to\sandbox</SandboxFolder>
+      <ReadOnly>true</ReadOnly>
+    </MappedFolder>
+  </MappedFolders>
+
+  <!-- A command to execute when Windows Sandbox starts. -->
+  <LogonCommand>
+    <Command>cmd.exe /c start cmd.exe</Command>
+  </LogonCommand>
+
+  <!-- The amount of memory, in megabytes, to assign to the sandbox. -->
+  <MemoryInMB>8192</MemoryInMB>
+</Configuration>
