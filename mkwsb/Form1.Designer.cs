@@ -517,7 +517,8 @@
 			// 
 			// buttonSave
 			// 
-			this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.buttonSave.Location = new System.Drawing.Point(351, 12);
 			this.buttonSave.Name = "buttonSave";
 			this.buttonSave.Size = new System.Drawing.Size(142, 54);
@@ -606,6 +607,8 @@
 			// 
 			// textBoxLogonCommand
 			// 
+			this.textBoxLogonCommand.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.textBoxLogonCommand.Location = new System.Drawing.Point(12, 258);
 			this.textBoxLogonCommand.Name = "textBoxLogonCommand";
 			this.textBoxLogonCommand.Size = new System.Drawing.Size(445, 19);
@@ -622,6 +625,7 @@
 			// 
 			// buttonLogonCommand
 			// 
+			this.buttonLogonCommand.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.buttonLogonCommand.Location = new System.Drawing.Point(463, 258);
 			this.buttonLogonCommand.Name = "buttonLogonCommand";
 			this.buttonLogonCommand.Size = new System.Drawing.Size(30, 19);
@@ -677,6 +681,7 @@
 			// 
 			// label6
 			// 
+			this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.label6.AutoSize = true;
 			this.label6.Location = new System.Drawing.Point(422, 195);
 			this.label6.Name = "label6";
@@ -686,6 +691,8 @@
 			// 
 			// numericUpDownMemoryInMB
 			// 
+			this.numericUpDownMemoryInMB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.numericUpDownMemoryInMB.Location = new System.Drawing.Point(353, 210);
 			this.numericUpDownMemoryInMB.Maximum = new decimal(new int[] {
             2147483647,
