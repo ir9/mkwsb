@@ -16,6 +16,7 @@ namespace mkwsb
 			AddDebugRecords();
 		}
 
+		[Conditional("DEBUG")]
 		private void AddDebugRecords()
 		{
 			dataSet1.MappingTable.AddMappingTableRow("c:\\windows\\system32", "c:\\system32", true, 0);
