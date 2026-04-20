@@ -244,12 +244,29 @@ namespace mkwsb
 		// --- util for grid view ---
 		private string MakeSandBoxDir(string hostDirectory)
 		{
-			string dirName = Path.GetFileName(hostDirectory);
+			string dirName = GetDirectoryName(hostDirectory);
 			string sandBoxDir = Path.Combine(SANDBOX_MOUNT_ROOT_PATH, dirName);
 			return sandBoxDir;
 		}
 
-		
+		private string GetDirectoryName(string hostDirectory)
+		{
+			string dirName = Path.GetFileName(hostDirectory);
+			if (!string.IsNullOrEmpty(dirName))
+				return dirName;
+
+			if (hostDirectory[1] == ':')
+			{
+				char d = hostDirectory[0];
+				return "drive_" + d;
+			}
+			else
+			{
+				return DateTime.Now.ToString("yyyyMMdd_hhmmss");
+			}
+		}
+
+
 		// ==== LogonCommand family =====
 		private void SetLogonCommand()
 		{
