@@ -1,5 +1,5 @@
 # mkwsb
-Windows sandbox configuration creater
+Windows sandbox configuration creator
 
 This repository contain 3 solutions.
 
